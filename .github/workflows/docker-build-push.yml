@@ -16,12 +16,20 @@ jobs:
   docker:
     runs-on: self-hosted
     steps:
-      - name: Docker Login
+      - name: "Checkout"
+        uses: actions/checkout@v3.3.0
+      - name: "Create env file"
+        run: |
+          echo "${{ secrets.ENV }}" | base64 -d > .env
+      - name: "Docker Login"
         run: |
           docker login \
             -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} \
             -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }} \
             ${{ secrets.DOCKER_REGISTRY_HOST }}
-      - name: Build and push Docker images
+      - name: "Build docker an image"
         run: |
           docker buildx build -t ${{ secrets.DOCKER_REGISTRY_HOST }}/${{ inputs.image_name }} .
+      - name: "Push docker the image"
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_HOST }}/${{ inputs.image_name }}
