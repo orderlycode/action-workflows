@@ -1,7 +1,10 @@
 name: Push Docker Image
 on:
-  push:
-    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      image:
+        description: 'docker image name'
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
