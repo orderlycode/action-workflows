@@ -5,7 +5,7 @@ on:
       ENV: 
         required: true
 jobs:
-  setup-env:
+  env:
     runs-on: self-hosted
     steps:
       - name: "Create env file"
