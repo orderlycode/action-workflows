@@ -5,6 +5,13 @@ on:
       image_name:
         required: true
         type: string
+    secrets:
+      DOCKER_REGISTRY_USERNAME: 
+        required: true
+      DOCKER_REGISTRY_PASSWORD: 
+        required: true
+      DOCKER_REGISTRY_HOST: 
+        required: true
 jobs:
   build:
     runs-on: self-hosted
