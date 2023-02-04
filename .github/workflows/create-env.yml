@@ -1,1 +1,13 @@
-
+name: Create Env
+on:
+  workflow_call:
+    secrets:
+      ENV: 
+        required: true
+jobs:
+  setup-env:
+    runs-on: self-hosted
+    steps:
+      - name: "Create env file"
+        run: |
+          echo "${{ secrets.ENV }}" | base64 -d > .env
