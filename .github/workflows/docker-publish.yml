@@ -1,0 +1,17 @@
+name: Docker
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        run: |
+          docker login --username ${{ env.DOCKER_REGISTRY_USERNAME }} \
+            --password ${{ env.DOCKER_REGISTRY_PASSWORD }} \
+            ${{ env.DOCKER_REGISTRY_HOST }}
