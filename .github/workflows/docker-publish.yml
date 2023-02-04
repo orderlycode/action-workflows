@@ -12,6 +12,6 @@ jobs:
 
       - name: Log into registry ${{ env.REGISTRY }}
         run: |
-          docker login --username ${{ env.DOCKER_REGISTRY_USERNAME }} \
-            --password ${{ env.DOCKER_REGISTRY_PASSWORD }} \
-            ${{ env.DOCKER_REGISTRY_HOST }}
+          docker login --username ${{ secrets.DOCKER_REGISTRY_USERNAME }} \
+            --password ${{ secrets.DOCKER_REGISTRY_PASSWORD }} \
+            ${{ secrets.DOCKER_REGISTRY_HOST }}
