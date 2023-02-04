@@ -31,4 +31,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ image_name }}
+          tags: ${{ secrets.DOCKER_REGISTRY_HOST }}/${{ image_name }}
