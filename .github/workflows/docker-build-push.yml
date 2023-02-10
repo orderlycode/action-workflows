@@ -6,6 +6,8 @@ on:
         required: true
         type: string
     secrets:
+      ENV: 
+        required: true
       DOCKER_REGISTRY_USERNAME: 
         required: true
       DOCKER_REGISTRY_PASSWORD: 
