@@ -34,7 +34,7 @@ jobs:
         with:
           cmd: compare ${{ env.CURRENT_VERSION }} ${{ env.LATEST_VERSION }}
       - name: "Set env if release"
-        if: ${{ steps.semver-tool.outputs.result == 1 }}
+        if: ${{ steps.semver-tool.outputs.output == 1 }}
         run: |
           echo "TAG=$CURRENT_VERSION" >> $GITHUB_ENV
           echo "RELEASE=1"  >> $GITHUB_ENV
