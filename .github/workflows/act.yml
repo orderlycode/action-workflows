@@ -95,6 +95,7 @@ jobs:
         if: ${{ !github.event.act }}
         uses: softprops/action-gh-release@v1
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           tag_name: ${{ needs.setup.outputs.release_version }}
           draft: false
           prerelease: false
