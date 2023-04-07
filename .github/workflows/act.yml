@@ -99,4 +99,5 @@ jobs:
           tag_name: ${{ needs.setup.outputs.release_version }}
           draft: false
           prerelease: false
+          contents: write
           generate_release_notes: true
