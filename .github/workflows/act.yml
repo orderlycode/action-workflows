@@ -94,10 +94,7 @@ jobs:
         # https://github.com/nektos/act#skipping-jobs
         if: ${{ !github.event.act }}
         uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           tag_name: ${{ needs.setup.outputs.release_version }}
           release_name: ${{ needs.setup.outputs.release_version }}
           draft: false
