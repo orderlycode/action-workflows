@@ -81,7 +81,7 @@ jobs:
   production:
     name: "Deploy to production"
     runs-on: self-hosted
-    if: ${{ needs.setup.outputs.release == '1' }}
+    if: ${{ needs.setup.outputs.release }}
     needs: ['setup', 'build']
     steps:
       - uses: orderlycode/action-k8s-deploy@main
