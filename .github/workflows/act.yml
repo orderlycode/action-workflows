@@ -97,5 +97,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{  steps.setup.outputs.release_version }}
+          tag_name: ${{ steps.setup.outputs.release_version }}
           release_name: ${{ steps.setup.outputs.release_version }}
