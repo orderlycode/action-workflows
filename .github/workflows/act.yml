@@ -84,7 +84,7 @@ jobs:
     if: ${{ needs.setup.outputs.release == '1' }}
     needs: ['setup', 'build']
     steps:
-      - uses: orderlycode/k8s-deploy-action@main
+      - uses: orderlycode/action-k8s-deploy@main
         with:
           kubeConfig: ${{ secrets.K8S_PROD }}
           name: ${{ needs.setup.outputs.app_name }}
