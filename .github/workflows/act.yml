@@ -96,7 +96,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ needs.setup.outputs.release_version }}
-          release_name: ${{ needs.setup.outputs.release_version }}
           draft: false
           prerelease: false
           generate_release_notes: true
