@@ -98,7 +98,3 @@ jobs:
         with:
           tag_name: ${{  steps.setup.outputs.release_version }}
           release_name: ${{ steps.setup.outputs.release_version }}
-
-# IMAGE_NAME=hub.orderlycode.com/${{ github.repository }}
-# IMAGE=${IMAGE_NAME}:${VERSION}
-# echo "IMAGE: $IMAGE" >> $GITHUB_ENV
