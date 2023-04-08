@@ -72,7 +72,7 @@ jobs:
   staging:
     name: "Deploy to staging"
     runs-on: self-hosted
-    needs: ['setup', 'build-amd64', 'build-arm64']
+    needs: ['setup', 'build']
     steps:
       - name: "Deploy"
         uses: orderlycode/action-k8s-deploy@main
@@ -97,7 +97,7 @@ jobs:
     permissions:
       contents: write
     if: ${{ needs.setup.outputs.release }}
-    needs: ['setup', 'build-amd64', 'build-arm64']
+    needs: ['setup', 'build']
     steps:
       - name: "Deploy"
         uses: orderlycode/action-k8s-deploy@main
