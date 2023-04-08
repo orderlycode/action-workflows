@@ -88,6 +88,8 @@ jobs:
       - name: "Apply env file as environment variable"
         if: steps.check_files.outputs.files_exists == 'true'
         run: |
+          echo ${{ secrets.K8S_STAGING }} | base64 -d > $(pwd)/k8s.yaml
+          export KUBECONFIG=$(pwd)/k8s.yaml
           kubectl delete secret ${{ needs.setup.outputs.app_name }} --ignore-not-found=true
           kubectl create secret generic ${{ needs.setup.outputs.app_name }} --from-env-file=.env.staging
           kubectl set env --from=secret/${{ needs.setup.outputs.app_name }} deployment/${{ needs.setup.outputs.app_name }}
@@ -113,6 +115,8 @@ jobs:
       - name: "Apply env file as environment variable"
         if: steps.check_files.outputs.files_exists == 'true'
         run: |
+          echo ${{ secrets.K8S_PROD }} | base64 -d > $(pwd)/k8s.yaml
+          export KUBECONFIG=$(pwd)/k8s.yaml
           kubectl delete secret ${{ needs.setup.outputs.app_name }} --ignore-not-found=true
           kubectl create secret generic ${{ needs.setup.outputs.app_name }} --from-env-file=.env.prod
           kubectl set env --from=secret/${{ needs.setup.outputs.app_name }} deployment/${{ needs.setup.outputs.app_name }}
