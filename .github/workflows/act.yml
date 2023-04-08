@@ -98,11 +98,23 @@ jobs:
     runs-on: self-hosted
     needs: ['setup', 'build-amd64', 'build-arm64']
     steps:
-      - uses: orderlycode/action-k8s-deploy@main
+      - name: "Deploy"
+        uses: orderlycode/action-k8s-deploy@main
         with:
           kubeConfig: ${{ secrets.K8S_STAGING }}
           name: ${{ needs.setup.outputs.app_name }}
           image: ${{ needs.setup.outputs.image }}
+      - name: "Check env file existence"
+        id: check_files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: ".env.staging"
+      - name: "Apply env file as environment variable"
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          kubectl delete secret ${{ needs.setup.outputs.app_name }} --ignore-not-found=true
+          kubectl create secret generic ${{ needs.setup.outputs.app_name }} --from-env-file=.env.staging
+          kubectl set env --from=secret/${{ needs.setup.outputs.app_name }} deployment/${{ needs.setup.outputs.app_name }}
   production:
     name: "Deploy to production"
     runs-on: self-hosted
@@ -111,11 +123,23 @@ jobs:
     if: ${{ needs.setup.outputs.release }}
     needs: ['setup', 'build-amd64', 'build-arm64']
     steps:
-      - uses: orderlycode/action-k8s-deploy@main
+      - name: "Deploy"
+        uses: orderlycode/action-k8s-deploy@main
         with:
           kubeConfig: ${{ secrets.K8S_PROD }}
           name: ${{ needs.setup.outputs.app_name }}
           image: ${{ needs.setup.outputs.image }}
+      - name: "Check env file existence"
+        id: check_files
+        uses: andstor/file-existence-action@v2
+        with:
+          files: ".env.prod"
+      - name: "Apply env file as environment variable"
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: |
+          kubectl delete secret ${{ needs.setup.outputs.app_name }} --ignore-not-found=true
+          kubectl create secret generic ${{ needs.setup.outputs.app_name }} --from-env-file=.env.prod
+          kubectl set env --from=secret/${{ needs.setup.outputs.app_name }} deployment/${{ needs.setup.outputs.app_name }}
       - name: "Github Release 생성"
         # https://github.com/nektos/act#skipping-jobs
         if: ${{ !github.event.act }}
