@@ -12,7 +12,7 @@ jobs:
       release_version: ${{ steps.output.outputs.release_version }}
     steps:
       - id: latestRelease
-        uses: thebritican/fetch-latest-release@v2.0.0
+        uses: orderlycode/fetch-latest-release@main
       - name: "Checkout"
         uses: actions/checkout@v3
       - name: "Setup"
