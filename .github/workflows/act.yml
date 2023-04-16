@@ -17,6 +17,8 @@ jobs:
     steps:
       - id: latestRelease
         uses: orderlycode/fetch-latest-release@main
+        with:
+          github_token: ${{ github.token }}
       - name: "Checkout"
         uses: actions/checkout@v3
       - name: "Setup"
